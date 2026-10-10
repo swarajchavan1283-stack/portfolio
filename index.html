@@ -153,7 +153,7 @@ footer{border-top:1px solid var(--bd);text-align:center;color:var(--mute);paddin
 </div>
 <footer>© FandomAlwaysWins</footer>
 <div id="bar" data-owner hidden>
-  <div class="bl"><b>Owner mode</b><span id="oMsg">Saves go straight to your GitHub repo.</span><button class="btn ghost" id="cfgBtn">GitHub setup</button></div>
+  <div class="bl"><b>Owner mode</b><span id="oMsg">Saves go straight to your GitHub repo.</span><button class="btn ghost" id="cfgBtn">GitHub setup</button><button class="btn ghost" id="cleanBtn">Clean unused files</button></div>
   <div id="cfg" hidden>
     <input id="cRepo" placeholder="GitHub repo: username/reponame">
     <input id="cBranch" placeholder="Branch (main)" value="main">
@@ -182,7 +182,7 @@ function render(){
     const im=document.createElement('img');im.loading='lazy';im.alt='Minecraft YouTube thumbnail';im.src=src(p);
     im.onclick=()=>{lb.querySelector('img').src=im.src;lb.classList.add('on')};w.append(im);
     if(OWNER){const x=document.createElement('button');x.className='x';x.textContent='✕';x.title='Remove';
-      x.onclick=async()=>{if(!confirm('Remove this thumbnail?'))return;await run(()=>saveData(d=>{d.thumbs=d.thumbs.filter(t=>t!==p)}),'Removed ✓')};w.append(x)}
+      x.onclick=async()=>{if(!confirm('Remove this thumbnail?'))return;await run(()=>saveData(d=>{d.thumbs=d.thumbs.filter(t=>t!==p)}).then(()=>delFile(p).catch(()=>{})),'Removed ✓')};w.append(x)}
     g.append(w)});
   $('pEmpty').hidden=DATA.thumbs.length>0;$('tCount').textContent=DATA.thumbs.length;
   const v=$('vids');v.textContent='';
@@ -229,6 +229,8 @@ async function saveData(mut){const c=CFG();let cur={pfp:'',thumbs:[],videos:[]};
   const g=await gh('data.json?ref='+c.branch);
   if(g.ok){cur=Object.assign(cur,JSON.parse(unutf((await g.json()).content)))}
   mut(cur);await putFile('data.json',utf(JSON.stringify(cur,null,1)),'Update portfolio');DATA=cur;render()}
+async function delFile(path){const c=CFG();const g=await gh(path+'?ref='+c.branch);if(!g.ok)return;
+  const sha=(await g.json()).sha;await gh(path,{method:'DELETE',body:JSON.stringify({message:'Delete file',sha,branch:c.branch})})}
 async function run(fn,ok){if(!CFG()){$('cfg').hidden=false;say('First connect GitHub below (one-time setup).');return}
   try{say('Saving…');await fn();say(ok+' Live for everyone in about a minute.')}
   catch(e){say('Failed: '+e.message);alert('Could not save: '+e.message)}}
@@ -236,6 +238,11 @@ async function run(fn,ok){if(!CFG()){$('cfg').hidden=false;say('First connect Gi
 if(OWNER){
   document.querySelectorAll('[data-owner]').forEach(e=>e.hidden=false);
   const c=CFG();if(c){$('cRepo').value=c.repo;$('cBranch').value=c.branch}else $('cfg').hidden=false;
+  $('cleanBtn').onclick=()=>run(async()=>{const c=CFG();let cur={thumbs:[]};
+    const g=await gh('data.json?ref='+c.branch);if(g.ok)cur=JSON.parse(unutf((await g.json()).content));
+    const l=await gh('thumbs?ref='+c.branch);if(!l.ok)throw new Error('No thumbs folder found');
+    let n=0;for(const f of await l.json()){if(f.type==='file'&&!(cur.thumbs||[]).includes(f.path)){await delFile(f.path);n++}}
+    say('Deleted '+n+' unused file(s).')},'Cleaned ✓');
   $('cfgBtn').onclick=()=>{$('cfg').hidden=!$('cfg').hidden};
   $('cSave').onclick=()=>{const repo=$('cRepo').value.trim(),branch=$('cBranch').value.trim()||'main',token=$('cTok').value.trim()||(CFG()||{}).token;
     if(!/^[\w.-]+\/[\w.-]+$/.test(repo)||!token){alert('Enter repo as username/reponame and your token');return}
