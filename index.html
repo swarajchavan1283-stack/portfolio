@@ -41,9 +41,11 @@ h2{font-size:clamp(1.6rem,4vw,2.2rem);margin:10px 0 8px;letter-spacing:-.02em}
 .ic{width:46px;height:46px;border-radius:12px;background:var(--glow);display:grid;place-items:center;font-size:1.4rem;margin-bottom:14px}
 .card h3{margin:0 0 6px;font-size:1.1rem}.card p{margin:0;color:var(--mute);font-size:.94rem}
 .profile{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
-.pfp{flex:none;width:150px;height:150px;border-radius:28px;overflow:hidden;border:3px solid var(--acc2);box-shadow:0 0 0 6px var(--glow);background:var(--bg2);display:grid;place-items:center}
-.pfp img{width:100%;height:100%;object-fit:cover;display:block}
-.pfp span{font-family:inherit;font-weight:800;font-size:3.4rem;color:var(--acc)}
+@property --a{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes spin{to{--a:360deg}}
+.pfp{flex:none;width:160px;height:160px;border-radius:34px;padding:5px;background:conic-gradient(from var(--a),#ff3b47,#ffb347,#fff35c,#4dff88,#4dd2ff,#a06bff,#ff4dd2,#ff3b47);animation:spin 4s linear infinite;box-shadow:0 0 30px rgba(255,59,71,.35);display:grid;place-items:center}
+.pfp img{width:100%;height:100%;object-fit:cover;display:block;border-radius:29px;background:var(--bg2)}
+.pfp span{width:100%;height:100%;display:grid;place-items:center;background:var(--bg2);border-radius:29px;font-weight:800;font-size:3.4rem;color:var(--acc)}
 .pinfo{flex:1 1 280px}.pinfo h3{margin:0;font-size:1.6rem}.pinfo p{color:var(--mute);margin:6px 0 14px}
 .row{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
 .chip{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:8px 14px;font-size:.9rem;color:var(--mute)}.chip b{color:var(--text)}
@@ -78,6 +80,15 @@ footer{border-top:1px solid var(--bd);text-align:center;color:var(--mute);paddin
 #cfg{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 #cfg input{background:var(--bg);color:var(--text);border:1px solid var(--bd);border-radius:10px;padding:10px;font:inherit;min-width:0;flex:1 1 150px}
 .ghost{background:transparent;border:1px solid var(--bd);color:var(--text);padding:8px 14px}
+#dash{display:none;padding:34px 0 80px}
+body.owner #dash{display:block}body.owner nav,body.owner #top,body.owner footer{display:none}
+.dtop{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}.dtop h2{margin:4px 0 0}
+.dc{margin-bottom:16px}.dc h3{margin:0 0 6px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.dc h3 small{font-size:.78rem;font-weight:500;color:var(--mute)}.dc p{margin:0 0 12px;color:var(--mute);font-size:.92rem}
+.dmsg{margin-bottom:16px;border-color:var(--acc2)}
+.drow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+#dash input[type=text],#dash input[type=password]{background:var(--bg);color:var(--text);border:1px solid var(--bd);border-radius:10px;padding:11px 12px;font:inherit;min-width:0;flex:1 1 160px}
+#cfg{display:flex;flex-wrap:wrap;gap:10px}#cfg input{background:var(--bg);color:var(--text);border:1px solid var(--bd);border-radius:10px;padding:11px 12px;font:inherit;min-width:0;flex:1 1 150px}
+.vid.dv{position:relative;padding-right:44px}.vid .vx{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;cursor:pointer}
 </style>
 </head>
 <body>
@@ -104,9 +115,6 @@ footer{border-top:1px solid var(--bd);text-align:center;color:var(--mute);paddin
       <span class="eyebrow">ABOUT ME</span>
       <h3>FandomAlwaysWins</h3>
       <p>Minecraft thumbnail designer. I make bold, high-contrast thumbnails that fit your channel and make people press play.</p>
-      <div class="owner" data-owner hidden style="margin:0">
-        <label class="btn pri">Change profile picture<input type="file" id="pfpFile" accept="image/*"></label>
-      </div>
     </div>
   </div>
 </section>
@@ -125,11 +133,6 @@ footer{border-top:1px solid var(--bd);text-align:center;color:var(--mute);paddin
     <div class="acc-b">
       <a class="btn yt" href="https://www.youtube.com/@FandomBlitzz" target="_blank" rel="noopener">Visit channel ↗</a>
       <div class="vids" id="vids"></div>
-      <div class="owner" data-owner hidden>
-        <input type="text" id="vTitle" placeholder="Video title">
-        <input type="text" id="vUrl" placeholder="https://youtube.com/watch?v=...">
-        <button class="btn pri" id="vAdd">Add video</button>
-      </div>
     </div>
   </div>
 </section>
@@ -139,10 +142,6 @@ footer{border-top:1px solid var(--bd);text-align:center;color:var(--mute);paddin
   <p class="sub">A selection of Minecraft thumbnails I've designed. Click any to enlarge.</p>
   <div class="grid" id="grid"></div>
   <div class="empty" id="pEmpty">No thumbnails yet — check back soon.</div>
-  <div class="owner" data-owner hidden>
-    <label class="btn pri">+ Add thumbnails<input type="file" id="file" accept="image/*" multiple></label>
-    <span class="msg" id="pMsg">Pick one or more images.</span>
-  </div>
 </section>
 
 <section class="reveal">
@@ -152,15 +151,22 @@ footer{border-top:1px solid var(--bd);text-align:center;color:var(--mute);paddin
 </section>
 </div>
 <footer>© FandomAlwaysWins</footer>
-<div id="bar" data-owner hidden>
-  <div class="bl"><b>Owner mode</b><span id="oMsg">Saves go straight to your GitHub repo.</span><button class="btn ghost" id="cfgBtn">GitHub setup</button><button class="btn ghost" id="cleanBtn">Clean unused files</button></div>
-  <div id="cfg" hidden>
-    <input id="cRepo" placeholder="GitHub repo: username/reponame">
-    <input id="cBranch" placeholder="Branch (main)" value="main">
-    <input id="cTok" type="password" placeholder="GitHub token">
-    <button class="btn pri" id="cSave" style="padding:10px 16px">Save</button>
-  </div>
-</div>
+<main id="dash"><div class="wrap">
+  <div class="dtop"><div><span class="eyebrow">OWNER ACCESS</span><h2>Dashboard</h2></div><a class="btn ghost" id="viewSite" href="./">View live site ↗</a></div>
+  <div class="card dmsg"><span id="oMsg">Everything you save here goes straight to your GitHub repo.</span></div>
+  <div class="card dc"><h3>1 · Connect GitHub <small id="cStatus">not connected</small></h3>
+    <p>One-time setup per device. Your token stays in this browser only.</p>
+    <div id="cfg"><input id="cRepo" placeholder="username/reponame"><input id="cBranch" placeholder="Branch (main)" value="main"><input id="cTok" type="password" placeholder="GitHub token"><button class="btn pri" id="cSave">Save</button></div></div>
+  <div class="card dc"><h3>2 · Thumbnails</h3>
+    <div class="drow"><label class="btn pri">+ Add thumbnails<input type="file" id="file" accept="image/*" multiple></label><span class="msg" id="pMsg">Pick one or more images.</span></div>
+    <div class="grid" id="dGrid"></div></div>
+  <div class="card dc"><h3>3 · Profile picture</h3>
+    <div class="drow"><label class="btn pri">Change profile picture<input type="file" id="pfpFile" accept="image/*"></label></div></div>
+  <div class="card dc"><h3>4 · YouTube videos</h3>
+    <div class="drow"><input type="text" id="vTitle" placeholder="Video title"><input type="text" id="vUrl" placeholder="https://youtube.com/watch?v=..."><button class="btn pri" id="vAdd">Add video</button></div>
+    <div class="vids" id="dVids"></div></div>
+  <div class="card dc"><h3>5 · Maintenance</h3><div class="drow"><button class="btn ghost" id="cleanBtn">Clean unused files</button><span class="msg">Deletes uploaded images that are no longer in your portfolio.</span></div></div>
+</div></main>
 <div id="lb"><img alt=""></div>
 
 <script>
@@ -176,20 +182,24 @@ const CFG=()=>{try{return JSON.parse(localStorage.getItem('faw_gh')||'null')}cat
 const say=t=>{$('oMsg').textContent=t;$('pMsg').textContent=t};
 
 function render(){
-  const src=p=>PREVIEW[p]||p;
-  const g=$('grid');g.textContent='';
-  DATA.thumbs.forEach(p=>{const w=document.createElement('div');w.className='th';
+  const src=p=>PREVIEW[p]||(p==='pfp.jpg'?'pfp.jpg?v=2':p);
+  const thumbs=(g,x)=>{g.textContent='';DATA.thumbs.forEach(p=>{const w=document.createElement('div');w.className='th';
     const im=document.createElement('img');im.loading='lazy';im.alt='Minecraft YouTube thumbnail';im.src=src(p);
     im.onclick=()=>{lb.querySelector('img').src=im.src;lb.classList.add('on')};w.append(im);
-    if(OWNER){const x=document.createElement('button');x.className='x';x.textContent='✕';x.title='Remove';
-      x.onclick=async()=>{if(!confirm('Remove this thumbnail?'))return;await run(()=>saveData(d=>{d.thumbs=d.thumbs.filter(t=>t!==p)}).then(()=>delFile(p).catch(()=>{})),'Removed ✓')};w.append(x)}
-    g.append(w)});
+    if(x){const b=document.createElement('button');b.className='x';b.textContent='✕';b.title='Remove';
+      b.onclick=async()=>{if(!confirm('Remove this thumbnail?'))return;await run(()=>saveData(d=>{d.thumbs=d.thumbs.filter(t=>t!==p)}).then(()=>delFile(p).catch(()=>{})),'Removed ✓')};w.append(b)}
+    g.append(w)})};
+  thumbs($('grid'),false);thumbs($('dGrid'),true);
   $('pEmpty').hidden=DATA.thumbs.length>0;$('tCount').textContent=DATA.thumbs.length;
-  const v=$('vids');v.textContent='';
-  if(!DATA.videos.length){const d=document.createElement('div');d.className='empty';d.textContent='Videos coming soon.';v.append(d)}
-  DATA.videos.forEach(x=>{const u=safeUrl(x.url);if(!u)return;
-    const a=document.createElement('a');a.className='vid';a.href=u;a.target='_blank';a.rel='noopener';
-    const i=document.createElement('i');i.textContent='▶';const t=document.createElement('span');t.textContent=x.title||'Watch video';a.append(i,t);v.append(a)});
+  const vids=(v,x)=>{v.textContent='';
+    if(!DATA.videos.length){const d=document.createElement('div');d.className='empty';d.textContent=x?'No videos yet.':'Videos coming soon.';v.append(d)}
+    DATA.videos.forEach(y=>{const u=safeUrl(y.url);if(!u)return;
+      const a=document.createElement('a');a.className='vid'+(x?' dv':'');a.href=u;a.target='_blank';a.rel='noopener';
+      const i=document.createElement('i');i.textContent='▶';const t=document.createElement('span');t.textContent=y.title||'Watch video';a.append(i,t);
+      if(x){const b=document.createElement('button');b.className='vx';b.textContent='✕';b.title='Remove';
+        b.onclick=async e=>{e.preventDefault();e.stopPropagation();if(!confirm('Remove this video?'))return;await run(()=>saveData(d=>{d.videos=d.videos.filter(z=>!(z.url===y.url&&z.title===y.title))}),'Removed ✓')};a.append(b)}
+      v.append(a)})};
+  vids($('vids'),false);vids($('dVids'),true);
   const p=$('pfpBox');p.textContent='';
   if(DATA.pfp){const im=document.createElement('img');im.src=src(DATA.pfp);im.alt='FandomAlwaysWins profile picture';p.append(im)}
   else{const s=document.createElement('span');s.textContent='F';p.append(s)}
@@ -231,22 +241,17 @@ async function saveData(mut){const c=CFG();let cur={pfp:'',thumbs:[],videos:[]};
   mut(cur);await putFile('data.json',utf(JSON.stringify(cur,null,1)),'Update portfolio');DATA=cur;render()}
 async function delFile(path){const c=CFG();const g=await gh(path+'?ref='+c.branch);if(!g.ok)return;
   const sha=(await g.json()).sha;await gh(path,{method:'DELETE',body:JSON.stringify({message:'Delete file',sha,branch:c.branch})})}
-async function run(fn,ok){if(!CFG()){$('cfg').hidden=false;say('First connect GitHub below (one-time setup).');return}
+async function run(fn,ok){if(!CFG()){say('First connect GitHub in step 1 (one-time setup).');return}
   try{say('Saving…');await fn();say(ok+' Live for everyone in about a minute.')}
   catch(e){say('Failed: '+e.message);alert('Could not save: '+e.message)}}
 
 if(OWNER){
-  document.querySelectorAll('[data-owner]').forEach(e=>e.hidden=false);
-  const c=CFG();if(c){$('cRepo').value=c.repo;$('cBranch').value=c.branch}else $('cfg').hidden=false;
-  $('cleanBtn').onclick=()=>run(async()=>{const c=CFG();let cur={thumbs:[]};
-    const g=await gh('data.json?ref='+c.branch);if(g.ok)cur=JSON.parse(unutf((await g.json()).content));
-    const l=await gh('thumbs?ref='+c.branch);if(!l.ok)throw new Error('No thumbs folder found');
-    let n=0;for(const f of await l.json()){if(f.type==='file'&&!(cur.thumbs||[]).includes(f.path)){await delFile(f.path);n++}}
-    say('Deleted '+n+' unused file(s).')},'Cleaned ✓');
-  $('cfgBtn').onclick=()=>{$('cfg').hidden=!$('cfg').hidden};
+  document.body.classList.add('owner');document.title='Owner Dashboard';
+  $('viewSite').href=location.href.split('#')[0].split('?')[0];
+  const c=CFG();if(c){$('cRepo').value=c.repo;$('cBranch').value=c.branch;$('cStatus').textContent='connected to '+c.repo+' ✓'}
   $('cSave').onclick=()=>{const repo=$('cRepo').value.trim(),branch=$('cBranch').value.trim()||'main',token=$('cTok').value.trim()||(CFG()||{}).token;
-    if(!/^[\w.-]+\/[\w.-]+$/.test(repo)||!token){alert('Enter repo as username/reponame and your token');return}
-    localStorage.setItem('faw_gh',JSON.stringify({repo,branch,token}));$('cTok').value='';$('cfg').hidden=true;say('Connected ✓')};
+    if(!/^[\w.-]+\/[\w.-]+$/.test(repo)||!token){alert('Enter the repo as username/reponame and paste your token');return}
+    localStorage.setItem('faw_gh',JSON.stringify({repo,branch,token}));$('cTok').value='';$('cStatus').textContent='connected to '+repo+' ✓';say('Connected ✓')};
   $('file').onchange=e=>{const fs=[...e.target.files];e.target.value='';
     run(async()=>{const paths=[];let n=0;
       for(const f of fs){if(!f.type.startsWith('image/'))continue;say('Uploading '+f.name+'…');
@@ -258,6 +263,11 @@ if(OWNER){
       await putFile(p,d.split(',')[1],'Update profile picture');PREVIEW[p]=d;await saveData(x=>{x.pfp=p})},'Picture updated ✓')};
   $('vAdd').onclick=()=>{const u=safeUrl($('vUrl').value.trim());if(!u){alert('Enter a valid link');return}
     const t=$('vTitle').value.trim();run(async()=>{await saveData(x=>{x.videos.unshift({title:t,url:u})});$('vTitle').value=$('vUrl').value=''},'Video added ✓')};
+  $('cleanBtn').onclick=()=>run(async()=>{const c=CFG();let cur={thumbs:[]};
+    const g=await gh('data.json?ref='+c.branch);if(g.ok)cur=JSON.parse(unutf((await g.json()).content));
+    const l=await gh('thumbs?ref='+c.branch);if(!l.ok)throw new Error('No thumbs folder found');
+    let n=0;for(const f of await l.json()){if(f.type==='file'&&!(cur.thumbs||[]).includes(f.path)){await delFile(f.path);n++}}
+    say('Deleted '+n+' unused file(s).')},'Cleaned ✓');
 }
 </script>
 </body>
