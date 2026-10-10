@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FandomAlwaysWins · Minecraft Thumbnail Designer</title>
+<meta name="description" content="Minecraft YouTube thumbnail designer portfolio — FandomAlwaysWins">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--bg:#0a0607;--bg2:#140b0d;--card:#180d10;--text:#f7eef0;--mute:#b49aa0;--acc:#ff3b47;--acc2:#d4202d;--dsc:#5865f2;--yt:#ff3d3d;--bd:#2e1a1e;--glow:rgba(255,40,55,.22)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;background-image:radial-gradient(ellipse at 50% 0,var(--glow),transparent 60%);background-attachment:fixed}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+nav{position:sticky;top:0;z-index:5;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 80%,transparent);border-bottom:1px solid var(--bd)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font-family:inherit;font-weight:800;font-size:1.05rem;letter-spacing:.02em;color:var(--acc);text-decoration:none}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+nav a.l{color:var(--mute);text-decoration:none;font-size:.9rem;font-weight:500;padding:8px 12px;border-radius:8px}
+nav a.l:hover{color:var(--text);background:var(--bg2)}
+.hero{padding:80px 0 50px;text-align:center}
+.badge{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--bd);background:var(--card);border-radius:99px;padding:6px 14px;font-size:.82rem;color:var(--mute)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc);animation:p 2s infinite}@keyframes p{50%{opacity:.35}}
+.hero h1{font-size:clamp(2.4rem,8vw,4.6rem);line-height:1.05;margin:22px 0 14px;font-weight:800;letter-spacing:-.03em}
+.hero h1 span{background:linear-gradient(90deg,#ff3b47,#ff9aa2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:560px;margin:0 auto;color:var(--mute);font-size:1.08rem}
+.cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;color:#fff;text-decoration:none;padding:12px 22px;border-radius:12px;font-weight:600;font-size:.95rem;font-family:inherit;transition:.2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.pri{background:var(--acc2)}.dsc{background:var(--dsc)}.yt{background:var(--yt)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:46px}
+.stat{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px;text-align:center}
+.stat b{display:block;font-size:2rem;font-weight:800;color:var(--acc);font-variant-numeric:tabular-nums}
+.stat small{color:var(--mute);font-size:.82rem}
+section{padding:42px 0}
+.eyebrow{font-family:inherit;font-weight:700;font-size:.75rem;color:var(--acc);letter-spacing:.05em}
+h2{font-size:clamp(1.6rem,4vw,2.2rem);margin:10px 0 8px;letter-spacing:-.02em}
+.sub{color:var(--mute);margin:0 0 24px;max-width:560px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:24px;transition:.25s}
+.cards .card:hover{border-color:var(--acc2);transform:translateY(-3px)}
+.ic{width:46px;height:46px;border-radius:12px;background:var(--glow);display:grid;place-items:center;font-size:1.4rem;margin-bottom:14px}
+.card h3{margin:0 0 6px;font-size:1.1rem}.card p{margin:0;color:var(--mute);font-size:.94rem}
+.profile{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.pfp{flex:none;width:150px;height:150px;border-radius:28px;overflow:hidden;border:3px solid var(--acc2);box-shadow:0 0 0 6px var(--glow);background:var(--bg2);display:grid;place-items:center}
+.pfp img{width:100%;height:100%;object-fit:cover;display:block}
+.pfp span{font-family:inherit;font-weight:800;font-size:3.4rem;color:var(--acc)}
+.pinfo{flex:1 1 280px}.pinfo h3{margin:0;font-size:1.6rem}.pinfo p{color:var(--mute);margin:6px 0 14px}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}
+.chip{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:8px 14px;font-size:.9rem;color:var(--mute)}.chip b{color:var(--text)}
+.acc-h{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:0;color:var(--text);font:inherit;font-size:1.25rem;font-weight:700;cursor:pointer;padding:0;text-align:left}
+.acc-b{display:none;margin-top:18px}.open .acc-b{display:block}.chev{transition:.2s;color:var(--mute)}.open .chev{transform:rotate(180deg)}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:18px}
+.vid{display:flex;gap:12px;align-items:center;background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:14px;text-decoration:none;color:var(--text);transition:.2s}
+.vid:hover{border-color:var(--yt)}
+.vid i{flex:none;width:40px;height:40px;border-radius:50%;background:var(--yt);display:grid;place-items:center;color:#fff;font-style:normal}
+.vid span{font-weight:500;font-size:.93rem}
+.grid{columns:3 260px;column-gap:14px}
+.grid img{width:100%;display:block;margin-bottom:14px;border-radius:14px;border:1px solid var(--bd);cursor:zoom-in;background:var(--bg2);transition:.25s;break-inside:avoid}
+.grid img:hover{transform:scale(1.02);border-color:var(--acc)}
+.empty{color:var(--mute);font-size:.93rem;padding:10px 0}
+.owner{margin-top:18px;padding:16px;border:1px dashed var(--acc2);border-radius:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.owner[hidden]{display:none}
+.owner input[type=text]{background:var(--bg);color:var(--text);border:1px solid var(--bd);border-radius:10px;padding:11px 12px;font:inherit;min-width:0;flex:1 1 160px}
+label.btn input{display:none}
+.msg{font-size:.88rem;color:var(--mute)}
+.contact{text-align:center;background:linear-gradient(135deg,var(--card),var(--bg2));border:1px solid var(--bd);border-radius:22px;padding:46px 22px}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}.reveal.in{opacity:1;transform:none}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;place-items:center;padding:20px;z-index:20;cursor:zoom-out}
+#lb.on{display:grid}#lb img{max-width:100%;max-height:100%;border-radius:12px}
+footer{border-top:1px solid var(--bd);text-align:center;color:var(--mute);padding:28px 0 60px;font-size:.84rem}
+@media(max-width:600px){nav ul{display:none}.profile{justify-content:center;text-align:center}.row{justify-content:center}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+[hidden]{display:none!important}
+.th{position:relative;break-inside:avoid;margin-bottom:14px}.th img{margin:0}
+.th .x{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:0;background:rgba(0,0,0,.75);color:#fff;cursor:pointer;font-size:.9rem}
+#bar{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:30;width:min(94vw,640px);background:var(--card);border:1px solid var(--acc2);border-radius:14px;padding:12px 14px;font-size:.86rem;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+#bar .bl{display:flex;gap:10px;align-items:center;flex-wrap:wrap}#bar .bl span{flex:1;color:var(--mute);min-width:140px}
+#cfg{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+#cfg input{background:var(--bg);color:var(--text);border:1px solid var(--bd);border-radius:10px;padding:10px;font:inherit;min-width:0;flex:1 1 150px}
+.ghost{background:transparent;border:1px solid var(--bd);color:var(--text);padding:8px 14px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="#top">FAW</a>
+<ul><li><a class="l" href="#profile">Profile</a></li><li><a class="l" href="#discord">Discord</a></li><li><a class="l" href="#youtube">YouTube</a></li><li><a class="l" href="#portfolio">Portfolio</a></li></ul></div></nav>
+
+<div class="wrap" id="top">
+<header class="hero">
+  <span class="badge"><i class="dot"></i> Open for thumbnail work</span>
+  <h1>Minecraft thumbnails<br>that get <span>clicked.</span></h1>
+  <p>Hi, I'm <b>FandomAlwaysWins</b> — I design eye-catching Minecraft YouTube thumbnails built to boost your click-through rate.</p>
+  <div class="cta"><a class="btn pri" href="#portfolio">View my work</a><a class="btn dsc" href="https://discord.gg/cuEjrwcaGY" target="_blank" rel="noopener">Join Discord</a></div>
+  <div class="stats">
+    <div class="stat"><b id="count">…</b><small>Total visitors</small></div>
+    <div class="stat"><b id="tCount">0</b><small>Thumbnails made</small></div>
+    <div class="stat"><b>100%</b><small>Minecraft focused</small></div>
+  </div>
+</header>
+
+<section id="profile" class="reveal">
+  <div class="card profile">
+    <div class="pfp" id="pfpBox"><span>F</span></div>
+    <div class="pinfo">
+      <span class="eyebrow">ABOUT ME</span>
+      <h3>FandomAlwaysWins</h3>
+      <p>Minecraft thumbnail designer. I make bold, high-contrast thumbnails that fit your channel and make people press play.</p>
+      <div class="owner" data-owner hidden style="margin:0">
+        <label class="btn pri">Change profile picture<input type="file" id="pfpFile" accept="image/*"></label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="discord" class="reveal">
+  <div class="card">
+    <span class="eyebrow">COMMUNITY</span><h2>💬 Discord</h2>
+    <div class="row"><span class="chip">Username: <b>fandomontop</b></span><span class="chip">Display name: <b>FandomAlwaysWins</b></span></div>
+    <a class="btn dsc" href="https://discord.gg/cuEjrwcaGY" target="_blank" rel="noopener">Join my Discord ↗</a>
+  </div>
+</section>
+
+<section id="youtube" class="reveal">
+  <div class="card" id="ytCard">
+    <button class="acc-h" id="ytToggle" aria-expanded="false"><span>▶️ YouTube — @FandomBlitzz</span><span class="chev">⌄</span></button>
+    <div class="acc-b">
+      <a class="btn yt" href="https://www.youtube.com/@FandomBlitzz" target="_blank" rel="noopener">Visit channel ↗</a>
+      <div class="vids" id="vids"></div>
+      <div class="owner" data-owner hidden>
+        <input type="text" id="vTitle" placeholder="Video title">
+        <input type="text" id="vUrl" placeholder="https://youtube.com/watch?v=...">
+        <button class="btn pri" id="vAdd">Add video</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" class="reveal">
+  <span class="eyebrow">PORTFOLIO</span><h2>🎨 Thumbnail Portfolio</h2>
+  <p class="sub">A selection of Minecraft thumbnails I've designed. Click any to enlarge.</p>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="pEmpty">No thumbnails yet — check back soon.</div>
+  <div class="owner" data-owner hidden>
+    <label class="btn pri">+ Add thumbnails<input type="file" id="file" accept="image/*" multiple></label>
+    <span class="msg" id="pMsg">Pick one or more images.</span>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="contact"><span class="eyebrow">LET'S WORK</span><h2>Want a thumbnail for your next video?</h2>
+  <p class="sub" style="margin:0 auto 22px">Message me on Discord and let's make it pop.</p>
+  <a class="btn dsc" href="https://discord.gg/cuEjrwcaGY" target="_blank" rel="noopener">Contact on Discord ↗</a></div>
+</section>
+</div>
+<footer>© FandomAlwaysWins</footer>
+<div id="bar" data-owner hidden>
+  <div class="bl"><b>Owner mode</b><span id="oMsg">Saves go straight to your GitHub repo.</span><button class="btn ghost" id="cfgBtn">GitHub setup</button></div>
+  <div id="cfg" hidden>
+    <input id="cRepo" placeholder="GitHub repo: username/reponame">
+    <input id="cBranch" placeholder="Branch (main)" value="main">
+    <input id="cTok" type="password" placeholder="GitHub token">
+    <button class="btn pri" id="cSave" style="padding:10px 16px">Save</button>
+  </div>
+</div>
+<div id="lb"><img alt=""></div>
+
+<script>
+const $=id=>document.getElementById(id);
+let DATA={pfp:'',thumbs:[],videos:[]};const PREVIEW={};
+const OWNER=new URLSearchParams(location.search).has('owner')||location.hash==='#owner';
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&(e.target.classList.add('in'),io.unobserve(e.target))),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+$('ytToggle').onclick=()=>{const s=$('ytCard');s.classList.toggle('open');$('ytToggle').setAttribute('aria-expanded',s.classList.contains('open'))};
+const lb=$('lb');lb.onclick=()=>lb.classList.remove('on');
+const safeUrl=u=>{try{const x=new URL(u);return /^https?:$/.test(x.protocol)?x.href:null}catch(e){return null}};
+const CFG=()=>{try{return JSON.parse(localStorage.getItem('faw_gh')||'null')}catch(e){return null}};
+const say=t=>{$('oMsg').textContent=t;$('pMsg').textContent=t};
+
+function render(){
+  const src=p=>PREVIEW[p]||p;
+  const g=$('grid');g.textContent='';
+  DATA.thumbs.forEach(p=>{const w=document.createElement('div');w.className='th';
+    const im=document.createElement('img');im.loading='lazy';im.alt='Minecraft YouTube thumbnail';im.src=src(p);
+    im.onclick=()=>{lb.querySelector('img').src=im.src;lb.classList.add('on')};w.append(im);
+    if(OWNER){const x=document.createElement('button');x.className='x';x.textContent='✕';x.title='Remove';
+      x.onclick=async()=>{if(!confirm('Remove this thumbnail?'))return;await run(()=>saveData(d=>{d.thumbs=d.thumbs.filter(t=>t!==p)}),'Removed ✓')};w.append(x)}
+    g.append(w)});
+  $('pEmpty').hidden=DATA.thumbs.length>0;$('tCount').textContent=DATA.thumbs.length;
+  const v=$('vids');v.textContent='';
+  if(!DATA.videos.length){const d=document.createElement('div');d.className='empty';d.textContent='Videos coming soon.';v.append(d)}
+  DATA.videos.forEach(x=>{const u=safeUrl(x.url);if(!u)return;
+    const a=document.createElement('a');a.className='vid';a.href=u;a.target='_blank';a.rel='noopener';
+    const i=document.createElement('i');i.textContent='▶';const t=document.createElement('span');t.textContent=x.title||'Watch video';a.append(i,t);v.append(a)});
+  const p=$('pfpBox');p.textContent='';
+  if(DATA.pfp){const im=document.createElement('img');im.src=src(DATA.pfp);im.alt='FandomAlwaysWins profile picture';p.append(im)}
+  else{const s=document.createElement('span');s.textContent='F';p.append(s)}
+}
+(async()=>{try{const r=await fetch('data.json?'+Date.now(),{cache:'no-store'});if(r.ok)DATA=Object.assign(DATA,await r.json())}catch(e){}render()})();
+
+// shared visitor counter (counts each browser once)
+(async()=>{
+  const base='https://api.counterapi.dev/v1/fandomalwayswins-portfolio/visits';
+  let counted=false;try{counted=!!localStorage.getItem('faw_counted')}catch(e){}
+  try{const r=await fetch(base+(counted?'':'/up'));const j=await r.json();
+    $('count').textContent=Number(j.count).toLocaleString();
+    if(!counted)try{localStorage.setItem('faw_counted','1')}catch(e){}
+  }catch(e){$('count').textContent='—'}
+})();
+
+function toData(file,max,square){
+  return new Promise((res,rej)=>{const im=new Image(),u=URL.createObjectURL(file);
+    im.onload=()=>{let w=im.width,h=im.height,sx=0,sy=0,sw=w,sh=h;
+      if(square){const s=Math.min(w,h);sx=(w-s)/2;sy=(h-s)/2;sw=sh=s;w=h=Math.min(s,max)}
+      else if(w>max){h=Math.round(h*max/w);w=max}
+      const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,sx,sy,sw,sh,0,0,w,h);
+      URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.88))};
+    im.onerror=()=>rej(new Error('Could not read image'));im.src=u})}
+
+// ---- owner mode: saves straight to your GitHub repo ----
+const utf=s=>btoa(unescape(encodeURIComponent(s)));
+const unutf=b=>decodeURIComponent(escape(atob(b.replace(/\n/g,''))));
+function gh(path,opt={}){const c=CFG();
+  return fetch('https://api.github.com/repos/'+c.repo+'/contents/'+path,Object.assign({},opt,{headers:{Authorization:'Bearer '+c.token,Accept:'application/vnd.github+json','Content-Type':'application/json'}}))}
+async function putFile(path,b64,msg){const c=CFG();let sha;
+  const g=await gh(path+'?ref='+c.branch);if(g.ok)sha=(await g.json()).sha;
+  const r=await gh(path,{method:'PUT',body:JSON.stringify({message:msg,content:b64,branch:c.branch,sha})});
+  if(!r.ok){let m=r.status;try{m=(await r.json()).message}catch(e){}throw new Error(m)}}
+async function saveData(mut){const c=CFG();let cur={pfp:'',thumbs:[],videos:[]};
+  const g=await gh('data.json?ref='+c.branch);
+  if(g.ok){cur=Object.assign(cur,JSON.parse(unutf((await g.json()).content)))}
+  mut(cur);await putFile('data.json',utf(JSON.stringify(cur,null,1)),'Update portfolio');DATA=cur;render()}
+async function run(fn,ok){if(!CFG()){$('cfg').hidden=false;say('First connect GitHub below (one-time setup).');return}
+  try{say('Saving…');await fn();say(ok+' Live for everyone in about a minute.')}
+  catch(e){say('Failed: '+e.message)}}
+
+if(OWNER){
+  document.querySelectorAll('[data-owner]').forEach(e=>e.hidden=false);
+  const c=CFG();if(c){$('cRepo').value=c.repo;$('cBranch').value=c.branch}else $('cfg').hidden=false;
+  $('cfgBtn').onclick=()=>{$('cfg').hidden=!$('cfg').hidden};
+  $('cSave').onclick=()=>{const repo=$('cRepo').value.trim(),branch=$('cBranch').value.trim()||'main',token=$('cTok').value.trim()||(CFG()||{}).token;
+    if(!/^[\w.-]+\/[\w.-]+$/.test(repo)||!token){alert('Enter repo as username/reponame and your token');return}
+    localStorage.setItem('faw_gh',JSON.stringify({repo,branch,token}));$('cTok').value='';$('cfg').hidden=true;say('Connected ✓')};
+  $('file').onchange=e=>{const fs=[...e.target.files];e.target.value='';
+    run(async()=>{const paths=[];let n=0;
+      for(const f of fs){if(!f.type.startsWith('image/'))continue;say('Uploading '+f.name+'…');
+        const d=await toData(f,1280,false),p='thumbs/'+Date.now()+'-'+(n++)+'.jpg';
+        await putFile(p,d.split(',')[1],'Add thumbnail');PREVIEW[p]=d;paths.push(p)}
+      await saveData(x=>{x.thumbs.unshift(...paths)})},'Added ✓')};
+  $('pfpFile').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+    run(async()=>{const d=await toData(f,400,true),p='pfp-'+Date.now()+'.jpg';
+      await putFile(p,d.split(',')[1],'Update profile picture');PREVIEW[p]=d;await saveData(x=>{x.pfp=p})},'Picture updated ✓')};
+  $('vAdd').onclick=()=>{const u=safeUrl($('vUrl').value.trim());if(!u){alert('Enter a valid link');return}
+    const t=$('vTitle').value.trim();run(async()=>{await saveData(x=>{x.videos.unshift({title:t,url:u})});$('vTitle').value=$('vUrl').value=''},'Video added ✓')};
+}
+</script>
+</body>
+</html>
