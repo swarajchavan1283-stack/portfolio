@@ -219,7 +219,8 @@ function toData(file,max,square){
 const utf=s=>btoa(unescape(encodeURIComponent(s)));
 const unutf=b=>decodeURIComponent(escape(atob(b.replace(/\n/g,''))));
 function gh(path,opt={}){const c=CFG();
-  return fetch('https://api.github.com/repos/'+c.repo+'/contents/'+path,Object.assign({},opt,{headers:{Authorization:'Bearer '+c.token,Accept:'application/vnd.github+json','Content-Type':'application/json'}}))}
+  const url='https://api.github.com/repos/'+c.repo+'/contents/'+path+(opt.method?'':(path.includes('?')?'&':'?')+'_='+Date.now());
+  return fetch(url,Object.assign({cache:'no-store'},opt,{headers:{Authorization:'Bearer '+c.token,Accept:'application/vnd.github+json','Content-Type':'application/json'}}))}
 async function putFile(path,b64,msg){const c=CFG();let sha;
   const g=await gh(path+'?ref='+c.branch);if(g.ok)sha=(await g.json()).sha;
   const r=await gh(path,{method:'PUT',body:JSON.stringify({message:msg,content:b64,branch:c.branch,sha})});
@@ -230,7 +231,7 @@ async function saveData(mut){const c=CFG();let cur={pfp:'',thumbs:[],videos:[]};
   mut(cur);await putFile('data.json',utf(JSON.stringify(cur,null,1)),'Update portfolio');DATA=cur;render()}
 async function run(fn,ok){if(!CFG()){$('cfg').hidden=false;say('First connect GitHub below (one-time setup).');return}
   try{say('Saving…');await fn();say(ok+' Live for everyone in about a minute.')}
-  catch(e){say('Failed: '+e.message)}}
+  catch(e){say('Failed: '+e.message);alert('Could not save: '+e.message)}}
 
 if(OWNER){
   document.querySelectorAll('[data-owner]').forEach(e=>e.hidden=false);
